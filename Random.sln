@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Random", "Random\Random.csproj", "{C351B085-088F-4AD4-9A3E-05CF094821D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Release|iPhone.ActiveCfg = Release|iPhone
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Release|iPhone.Build.0 = Release|iPhone
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{C351B085-088F-4AD4-9A3E-05CF094821D4}.Debug|iPhone.Build.0 = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.StandardHeader = $2
+	EndGlobalSection
+EndGlobal
