@@ -2,6 +2,7 @@
 
 namespace Random
 {
+    [assembly: AssemblyCopyright("2017")]
     public class Application
     {
         // This is the main entry point of the application.
