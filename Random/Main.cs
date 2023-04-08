@@ -2,6 +2,7 @@
 
 namespace Random
 {
+    [assembly: AssemblyTitle("Random")]
     [assembly: AssemblyCopyright("2017")]
     public class Application
     {
