@@ -11,6 +11,24 @@ namespace Random
             updateErrorTextbox("Random Number Copied");
         }
 
+	void updateTextBoxnadLabelHiddenProperty(
+		bool normalMeanLabel,
+		bool normalVarianceLabel,
+		bool normalMeanTextbox,
+		bool normalVarianceTextbox,
+		bool exponentialParameterLabel,
+		bool exponentialParameterTextbox,
+		bool weibullLabel)
+	{
+		this.normalMeanLabel.Hidden = normalMeanLabel;
+                this.normalVarianceLabel.Hidden = normalVarianceLabel;
+                this.normalMeanTextbox.Hidden = normalMeanTextbox;
+                this.normalVarianceTextbox.Hidden = normalVarianceTextbox;
+                this.exponentialParameterLabel.Hidden = exponentialParameterLabel;
+                this.exponentialParameterTextbox.Hidden = exponentialParameterTextbox;
+                this.weibullLabel.Hidden = weibullLabel;
+	}
+
         partial void selectStepper1(UISegmentedControl sender)
         {
             nint caseSwitch = this.stepper1.SelectedSegment;
@@ -18,49 +36,29 @@ namespace Random
             switch (caseSwitch)
             {
                 case 0:
-                    this.normalMeanLabel.Hidden = true;
-                    this.normalVarianceLabel.Hidden = true;
-                    this.normalMeanTextbox.Hidden = true;
-                    this.normalVarianceTextbox.Hidden = true;
-                    this.exponentialParameterLabel.Hidden = true;
-                    this.exponentialParameterTextbox.Hidden = true;
-                    this.weibullLabel.Hidden = true;
+		    this.BeginInvokeOnMainThread(new Action(() => { 
+		    	updateTextBoxnadLabelHiddenProperty(true,true,true,true,true,true,true);
+	            }));
                     break;
                 case 1:
-                    this.normalMeanLabel.Hidden = false;
-                    this.normalVarianceLabel.Hidden = false;
-                    this.normalMeanTextbox.Hidden = false;
-                    this.normalVarianceTextbox.Hidden = false;
-                    this.exponentialParameterLabel.Hidden = true;
-                    this.exponentialParameterTextbox.Hidden = true;
-                    this.weibullLabel.Hidden = true;
+		    this.BeginInvokeOnMainThread(new Action(() => { 
+		    	updateTextBoxnadLabelHiddenProperty(false,false,false,false,true,true,true);
+	            }));
                     break;
                 case 2:
-					this.normalMeanLabel.Hidden = true;
-					this.normalVarianceLabel.Hidden = true;
-					this.normalMeanTextbox.Hidden = true;
-					this.normalVarianceTextbox.Hidden = true;
-                    this.exponentialParameterLabel.Hidden = false;
-                    this.exponentialParameterTextbox.Hidden = false;
-                    this.weibullLabel.Hidden = true;
+		    this.BeginInvokeOnMainThread(new Action(() => { 
+		    	updateTextBoxnadLabelHiddenProperty(true,true,true,true,false,false,true);
+	            }));
                     break;
                 case 3:
-					this.normalMeanLabel.Hidden = true;
-					this.normalVarianceLabel.Hidden = true;
-					this.normalMeanTextbox.Hidden = true;
-                    this.normalVarianceTextbox.Hidden = false;
-                    this.exponentialParameterLabel.Hidden = false;
-                    this.exponentialParameterTextbox.Hidden = false;
-                    this.weibullLabel.Hidden = false;
+		    this.BeginInvokeOnMainThread(new Action(() => { 
+		    	updateTextBoxnadLabelHiddenProperty(true,true,true,false,false,false,false);
+	            }));
                     break;
                 default:
-					this.normalMeanLabel.Hidden = true;
-					this.normalVarianceLabel.Hidden = true;
-					this.normalMeanTextbox.Hidden = true;
-					this.normalVarianceTextbox.Hidden = true;
-                    this.exponentialParameterLabel.Hidden = true;
-                    this.exponentialParameterTextbox.Hidden = true;
-                    this.weibullLabel.Hidden = true;
+		    this.BeginInvokeOnMainThread(new Action(() => { 
+		    	updateTextBoxnadLabelHiddenProperty(true,true,true,true,true,true,true);
+	            }));
                     break;
                     
             }
@@ -88,7 +86,7 @@ namespace Random
             {
                 case 0:
                     RN.InvokeOnMainThread(new Action(() => {
-                    this.RN.Text = UniformDoublePRNG.NextDouble().ToString();
+                    	this.RN.Text = UniformDoublePRNG.NextDouble().ToString();
                     }));
                     break;
                 case 1:
@@ -100,7 +98,7 @@ namespace Random
                         updateErrorTextbox("Mean Field not Complete");
                         break;
                     }
-                    if (!(this.normalVarianceTextbox.Text == ""))
+                    if (!(this.normalVarianceTextbox.Text == String.Empty))
                         sigmaSquared = Convert.ToDouble(this.normalVarianceTextbox.Text);
                     else
                     {
@@ -111,11 +109,11 @@ namespace Random
                         updateErrorTextbox("Invalid Variance Value");
                     else
                         this.RN.InvokeOnMainThread(new Action(() => {
-                        this.RN.Text = Normal.getNormal(mu, sigmaSquared).ToString();
+                        	this.RN.Text = Normal.getNormal(mu, sigmaSquared).ToString();
                         }));
                     break;
                 case 2:
-                    if(!(this.exponentialParameterTextbox.Text==String.Empty))
+                    if(!(this.exponentialParameterTextbox.Text == String.Empty))
                         lambda = Convert.ToDouble(this.exponentialParameterTextbox.Text);
                     else
                     {
@@ -126,11 +124,11 @@ namespace Random
                         updateErrorTextbox("Invalid Exponential Parameter");
                     else
                         this.RN.InvokeOnMainThread(new Action(() => {
-                        this.RN.Text = Exponential.getExponentialPRNG(lambda).ToString();
+                        	this.RN.Text = Exponential.getExponentialPRNG(lambda).ToString();
                         }));
                     break;
                 case 3:
-                    if (!(this.exponentialParameterLabel.Text == "") || !(this.normalVarianceTextbox.Text == ""))
+                    if (!(this.exponentialParameterLabel.Text == String.Empty) || !(this.normalVarianceTextbox.Text == String.Empty))
                     {
                         lambda = Convert.ToDouble(this.exponentialParameterTextbox.Text);
                         gamma = Convert.ToDouble(this.normalVarianceTextbox.Text);
@@ -146,12 +144,12 @@ namespace Random
                         updateErrorTextbox("Invalid Gamma");
                     else
                         this.RN.InvokeOnMainThread(new Action(() => {
-                        this.RN.Text = UniformDoublePRNG.PRNGUni.getWeibull(lambda, gamma).ToString();
+                        	this.RN.Text = UniformDoublePRNG.PRNGUni.getWeibull(lambda, gamma).ToString();
                         }));
                     break;
                 default:
                     this.RN.InvokeOnMainThread(new Action(() => {
-                    this.RN.Text = (0.0).ToString();
+                    	this.RN.Text = (0.0).ToString();
                     }));
                     break;
 
