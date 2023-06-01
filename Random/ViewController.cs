@@ -8,7 +8,9 @@ namespace Random
         partial void RNValueChanged(UITextField sender)
         {
             this.RN.Copy();
+            errorTextbox.InvokeOnMainThread(new Action(() => { 
             this.errorTextbox.Text = "Random Number Copied.";
+            }));
         }
 
         partial void selectStepper1(UISegmentedControl sender)
@@ -69,7 +71,10 @@ namespace Random
         partial void GenerateRN_TouchUpInside(UIButton sender)
         {
             //clear error text box in attempt to generate new random number.
-            this.errorTextbox.Text = "";
+            errorTextbox.InvokeOnMainThread(new Action(() => { 
+            this.errorTextbox.Text = String.Empty;
+            }));
+
             //prepare for switch statement
             nint caseSwitch = stepper1.SelectedSegment;
 
