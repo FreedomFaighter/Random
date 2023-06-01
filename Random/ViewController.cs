@@ -8,9 +8,7 @@ namespace Random
         partial void RNValueChanged(UITextField sender)
         {
             this.RN.Copy();
-            errorTextbox.InvokeOnMainThread(new Action(() => { 
-            this.errorTextbox.Text = "Random Number Copied.";
-            }));
+            updateErrorTextbox("Random Number Copied");
         }
 
         partial void selectStepper1(UISegmentedControl sender)
