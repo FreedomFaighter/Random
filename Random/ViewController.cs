@@ -67,13 +67,17 @@ namespace Random
                     
             }
         }
+        void updateErrorTextbox(String text)
+        {
+            this.errorTextbox.InvokeOnMainThread(new Action(() => {
+                this.errorTextbox.Text = text;
+            }));
+        }
 
         partial void GenerateRN_TouchUpInside(UIButton sender)
         {
             //clear error text box in attempt to generate new random number.
-            errorTextbox.InvokeOnMainThread(new Action(() => { 
-            this.errorTextbox.Text = String.Empty;
-            }));
+           updateErrorTextbox(String.Empty);
 
             //prepare for switch statement
             nint caseSwitch = stepper1.SelectedSegment;
@@ -85,7 +89,9 @@ namespace Random
             switch (caseSwitch)
             {
                 case 0:
+                    RN.InvokeOnMainThread(new Action(() => {
                     this.RN.Text = UniformDoublePRNG.NextDouble().ToString();
+                    }));
                     break;
                 case 1:
                     
@@ -93,33 +99,37 @@ namespace Random
                         mu = Convert.ToDouble(this.normalMeanTextbox.Text);
                     else
                     {
-                        this.errorTextbox.Text = "Mean Field not Complete";
+                        updateErrorTextbox("Mean Field not Complete");
                         break;
                     }
                     if (!(this.normalVarianceTextbox.Text == ""))
                         sigmaSquared = Convert.ToDouble(this.normalVarianceTextbox.Text);
                     else
                     {
-                        this.errorTextbox.Text = "Variance Field not Complete";
+                        updateErrorTextbox("Variance Field not Complete");
                         break;
                     }
                     if (sigmaSquared <= 0.0)
-                        this.errorTextbox.Text = "Invalid Variance Value.";
+                        updateErrorTextbox("Invalid Variance Value");
                     else
+                        this.RN.InvokeOnMainThread(new Action(() => {
                         this.RN.Text = Normal.getNormal(mu, sigmaSquared).ToString();
+                        }));
                     break;
                 case 2:
-                    if(!(this.exponentialParameterTextbox.Text==""))
+                    if(!(this.exponentialParameterTextbox.Text==String.Empty))
                         lambda = Convert.ToDouble(this.exponentialParameterTextbox.Text);
                     else
                     {
-                        this.errorTextbox.Text = "Parameter Field not Complete";
+                         "Parameter Field not Complete";
                         break;
                     }
                     if (lambda <= 0)
-                        this.errorTextbox.Text = "Invalid Exponential Parameter.";
+                        updateErrorTextbox("Invalid Exponential Parameter");
                     else
+                        this.RN.InvokeOnMainThread(new Action(() => {
                         this.RN.Text = Exponential.getExponentialPRNG(lambda).ToString();
+                        }));
                     break;
                 case 3:
                     if (!(this.exponentialParameterLabel.Text == "") || !(this.normalVarianceTextbox.Text == ""))
@@ -129,18 +139,22 @@ namespace Random
                     }
                     else
                     {
-                        this.errorTextbox.Text = "Parameter Field not Complete.";
+                        updateErrorTextbox("Parameter Field not Complete");
                         break;
                     }
                     if (lambda <= 0)
-                        this.errorTextbox.Text = "Invalid Lambda.";
+                        updateErrorTextbox("Invalid Lambda");
                     else if (gamma <= 0)
-                        this.errorTextbox.Text = "Invalid Gamma.";
+                        updateErrorTextbox("Invalid Gamma");
                     else
+                        this.RN.InvokeOnMainThread(new Action(() => {
                         this.RN.Text = UniformDoublePRNG.PRNGUni.getWeibull(lambda, gamma).ToString();
+                        }));
                     break;
                 default:
+                    this.RN.InvokeOnMainThread(new Action(() => {
                     this.RN.Text = (0.0).ToString();
+                    }));
                     break;
 
             }
